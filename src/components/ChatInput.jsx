@@ -37,34 +37,42 @@ const ChatInput = () => {
     }
   }, [chat]);
   
-  const submitFunction = (e) => {
-    e.preventDefault();
-    setText("");
-    resetTranscript();
-    setChat((prevChat) => [...prevChat, text]);
-    const queryParam = encodeURIComponent(text);
-    const url = `/api/qa?query=${queryParam}`;
+const submitFunction = (e) => {
+  e.preventDefault();
+  setText("");
+  resetTranscript();
+  setChat((prevChat) => [...prevChat, text]);
+  
+  const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+  const queryParam = encodeURIComponent(text);
+  const url = proxyUrl + `http://4.227.155.222:8080/qa?query=${queryParam}`;
 
-    fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+  fetch(url, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
     })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("Response from server:", data);
-        setData(data.response);
-        setChat((prevChat) => [...prevChat, data.response]);
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-        setData(`Error: ${error.message}`);
-        setChat((prevChat) => [...prevChat, `Error: ${error.message}`]);
-      });
+    .then((data) => {
+      console.log("Response from server:", data);
+      setData(data.response);
+      setChat((prevChat) => [...prevChat, data.response]);
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+      setData(`Error: ${error.message}`);
+      setChat((prevChat) => [...prevChat, `Error: ${error.message}`]);
+    });
 
-      dummy.current.scrollIntoView({behavior: 'smooth'});
-  };
+  dummy.current.scrollIntoView({ behavior: 'smooth' });
+};
+
   return (
     <div className="flex flex-col h-full gap-4 w-full">
     {chat.map((d, index)=>{
