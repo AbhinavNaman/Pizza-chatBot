@@ -42,10 +42,8 @@ const submitFunction = (e) => {
   setText("");
   resetTranscript();
   setChat((prevChat) => [...prevChat, text]);
-  
-  const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
   const queryParam = encodeURIComponent(text);
-  const url = proxyUrl + `http://4.227.155.222:8080/qa?query=${queryParam}`;
+  const url = `/api/qa?query=${queryParam}`;
 
   fetch(url, {
     method: "POST",
@@ -72,6 +70,7 @@ const submitFunction = (e) => {
 
   dummy.current.scrollIntoView({ behavior: 'smooth' });
 };
+
 
   return (
     <div className="flex flex-col h-full gap-4 w-full">
