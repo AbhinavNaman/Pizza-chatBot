@@ -85,7 +85,7 @@ const ChatInput = () => {
       </Alert>
       )
     })}
-    <div ref={dummy}></div>
+    <div ref={dummy} className="mb-28 h-1/4"></div>
       <div
         className="chat-input-container  p-4 border-b-4 rounded-xl flex flex-col bg-white fixed bottom-10 left-32 right-32"
         style={{
