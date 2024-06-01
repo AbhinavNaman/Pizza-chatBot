@@ -71,6 +71,11 @@ const submitFunction = (e) => {
   dummy.current.scrollIntoView({ behavior: 'smooth' });
 };
 
+    const handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      submitFunction(e);
+    }
+  };
 
   return (
     <div className="flex flex-col h-full gap-4 w-full">
@@ -105,6 +110,7 @@ const submitFunction = (e) => {
             onChange={(e) => {
               setText(e.target.value);
             }}
+            onKeyDown={handleKeyDown}
             className="w-full"
             style={{ border: "none", outline: "none" }}
           />
