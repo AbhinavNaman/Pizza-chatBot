@@ -37,66 +37,60 @@ const ChatInput = () => {
     }
   }, [chat]);
   
-const submitFunction = (e) => {
-  e.preventDefault();
-  setText("");
-  resetTranscript();
-  setChat((prevChat) => [...prevChat, text]);
-  const queryParam = encodeURIComponent(text);
-  const url = `/api/qa?query=${queryParam}`;
+  const submitFunction = (e) => {
+    e.preventDefault();
+    setText("");
+    resetTranscript();
+    setChat((prevChat) => [...prevChat, text]);
+    const queryParam = encodeURIComponent(text);
+    const url = `/api/qa?query=${queryParam}`;
 
-  fetch(url, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  })
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      return response.json();
+    fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
     })
-    .then((data) => {
-      console.log("Response from server:", data);
-      setData(data.response);
-      setChat((prevChat) => [...prevChat, data.response]);
-    })
-    .catch((error) => {
-      console.error("Error:", error);
-      setData(`Error: ${error.message}`);
-      setChat((prevChat) => [...prevChat, `Error: ${error.message}`]);
-    });
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Response from server:", data);
+        setData(data.response);
+        setChat((prevChat) => [...prevChat, data.response]);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        setData(`Error: ${error.message}`);
+        setChat((prevChat) => [...prevChat, `Error: ${error.message}`]);
+      });
 
-  dummy.current.scrollIntoView({ behavior: 'smooth' });
-};
+      dummy.current.scrollIntoView({behavior: 'smooth'});
+  };
 
-    const handleKeyDown = (e) => {
+  const handleKeyDown = (e) => {
     if (e.key === 'Enter') {
       submitFunction(e);
     }
   };
-
   return (
-    <div className="flex flex-col h-full gap-4 w-full">
+    <div className="flex flex-col justify-between h-full gap-4 w-full min-h-fit relative">
     {chat.map((d, index)=>{
       return(
-      <Alert className={` drop-shadow-md border-2 rounded-2xl  ${index%2===0 ?'border-green-500 bg-green-100':'border-sky-500 bg-sky-100'}`}>
-        <AlertTitle className={` flex gap-2 ${index%2===0 && 'justify-end'}`}>
+      <Alert className={` drop-shadow-md border-2 rounded-xl  ${index%2===0 ?'border-amber-500 bg-green-100':'border-amber-500 bg-amber-500'}`} style={{backgroundColor: index%2===0 && '#141f49', color: index%2===0 && 'white'}}>
+        <AlertTitle className={`flex gap-2 ${index%2===0 && 'justify-end'}`}>
         
           <img src={index%2===0 ? 'user.png':'pizza.png'} alt="sent" style={{ width: '20px' }} />
-          <p>{index%2===0 ? 'User':'PizzaBot'}</p>
+          <p className="font-bold">{index%2===0 ? 'User':'PizzaBot'}</p>
         </AlertTitle>
-        <AlertDescription className={`flex gap-2 ${index%2===0 && 'justify-end'}`}>{d}</AlertDescription>
+        <AlertDescription className={`font-semibold flex gap-2 ${index%2===0 && 'justify-end'}`}>{d}</AlertDescription>
       </Alert>
       )
     })}
     <div ref={dummy}></div>
       <div
-        className="chat-input-container border-2 p-4 border-b-2 rounded-xl flex flex-col "
+        className="chat-input-container  p-4 border-b-4 rounded-xl flex flex-col bg-white fixed bottom-10 left-32 right-32"
         style={{
-          borderBottomColor: "rgb(14 165 233)",
-          borderWidth: "2px",
+          borderBottomColor: "#fd8c29",
+          borderWidth: "4px",
           borderTopColor: "current",
           borderLeftColor: "current",
           borderRightColor: "current",
@@ -105,7 +99,7 @@ const submitFunction = (e) => {
         <div className="input-area" >
           <input
             type="text"
-            placeholder="Ask me anything..."
+            placeholder="I can help you with your order..."
             value={text}
             onChange={(e) => {
               setText(e.target.value);
@@ -125,17 +119,8 @@ const submitFunction = (e) => {
               <img src="/on.png" alt="sent" style={{ width: "20px" }} />
             </Button>
           )}
-          {/* <Button
-            variant="ghost"
-            onClick={() => {
-              resetTranscript();
-              setText("");
-            }}
-          >
-            <img src="/reset.png" alt="sent" style={{ width: "20px" }} />
-          </Button> */}
           <Button onClick={submitFunction} variant="ghost">
-            <img src="/send.png" alt="sent" style={{ width: "20px" }} />
+            <img src="/sen.png" alt="sent" style={{ width: "25px" }} />
           </Button>
         </div>
       </div>
