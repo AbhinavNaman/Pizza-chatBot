@@ -113,7 +113,8 @@ const ChatInput = () => {
           />
         </div>
         <div className="flex justify-end">
-          {listening ? (
+        {browserSupportsSpeechRecognition && (
+          listening ? (
             <Button onClick={SpeechRecognition.stopListening} variant="ghost">
               <img src="/stop.png" alt="sent" style={{ width: "20px" }} />
             </Button>
@@ -121,11 +122,14 @@ const ChatInput = () => {
             <Button onClick={startListen} variant="ghost">
               <img src="/on.png" alt="sent" style={{ width: "20px" }} />
             </Button>
-          )}
+          )
+        )
+        }
           <Button onClick={submitFunction} variant="ghost">
             <img src="/sen.png" alt="sent" style={{ width: "25px" }} />
           </Button>
         </div>
+      {!browserSupportsSpeechRecognition && <p className="text-xs text-slate-400 text-right">browser doesn't support speeech to text</p>}
       </div>
     </div>
   );
