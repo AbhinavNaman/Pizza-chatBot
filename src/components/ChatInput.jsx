@@ -1,9 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import "regenerator-runtime/runtime";
-import SpeechRecognition, {
-  useSpeechRecognition,
-} from "react-speech-recognition";
+import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
 import { Button } from "@/components/ui/button";
 
 const ChatInput = () => {
@@ -12,6 +10,7 @@ const ChatInput = () => {
   const [data, setData] = useState("");
   const [chat, setChat] = useState([]);
 
+  const startListen =()=> SpeechRecognition.startListening({ continuous: true });
   const {
     transcript,
     listening,
@@ -26,7 +25,7 @@ const ChatInput = () => {
   useEffect(() => {
     if (transcript) {
       setText(transcript);
-      console.log("Transcript:", transcript);
+      // console.log("Transcript:", transcript);
     }
   }, [transcript]);
 
@@ -75,7 +74,7 @@ const ChatInput = () => {
     <div className="flex flex-col justify-between h-full gap-4 w-full min-h-fit relative">
     {chat.map((d, index)=>{
       return(
-      <Alert className={` drop-shadow-md border-2 rounded-xl  ${index%2===0 ?'border-amber-500 bg-green-100':'border-amber-500 bg-amber-500'}`} style={{backgroundColor: index%2===0 && '#141f49', color: index%2===0 && 'white'}}>
+      <Alert key={index} className={` drop-shadow-md border-2 rounded-xl  ${index%2===0 ?'border-amber-500 bg-green-100':'border-amber-500 bg-amber-500'}`} style={{backgroundColor: index%2===0 && '#141f49', color: index%2===0 && 'white'}}>
         <AlertTitle className={`flex gap-2 ${index%2===0 && 'justify-end'}`}>
         
           <img src={index%2===0 ? 'user.png':'pizza.png'} alt="sent" style={{ width: '20px' }} />
@@ -115,7 +114,7 @@ const ChatInput = () => {
               <img src="/stop.png" alt="sent" style={{ width: "20px" }} />
             </Button>
           ) : (
-            <Button onClick={SpeechRecognition.startListening} variant="ghost">
+            <Button onClick={startListen} variant="ghost">
               <img src="/on.png" alt="sent" style={{ width: "20px" }} />
             </Button>
           )}
