@@ -74,7 +74,10 @@ const ChatInput = () => {
     <div className="flex flex-col justify-between h-full gap-4 w-full min-h-fit relative">
     {chat.map((d, index)=>{
       return(
-      <Alert key={index} className={` drop-shadow-md border-2 rounded-xl  ${index%2===0 ?'border-amber-500 bg-green-100':'border-amber-500 bg-amber-500'}`} style={{backgroundColor: index%2===0 && '#141f49', color: index%2===0 && 'white'}}>
+        <div key={index} className={`flex ${index%2===0 && 'justify-end'} w-full my-2`}>
+      <Alert className={` drop-shadow-md border rounded-xl  inline-block max-w-max my-2 ${index%2===0 && 'justify-end'}`} >
+      {/* ${index%2===0 ?'border-amber-100 bg-green-100':'border-amber-100 bg-amber-100'} */}
+      {/* style={{backgroundColor: index%2===0 && '#141f49', color: index%2===0 && 'white'}} */}
         <AlertTitle className={`flex gap-2 ${index%2===0 && 'justify-end'}`}>
         
           <img src={index%2===0 ? 'user.png':'pizza.png'} alt="sent" style={{ width: '20px' }} />
@@ -82,6 +85,7 @@ const ChatInput = () => {
         </AlertTitle>
         <AlertDescription className={`font-semibold flex gap-2 ${index%2===0 && 'justify-end'}`}>{d}</AlertDescription>
       </Alert>
+      </div>
       )
     })}
     <div ref={dummy} className="mb-28 h-1/4"></div>
@@ -89,7 +93,7 @@ const ChatInput = () => {
         className="chat-input-container  p-4 border-b-4 rounded-xl flex flex-col bg-white fixed bottom-10 left-32 right-32"
         style={{
           borderBottomColor: "#fd8c29",
-          borderWidth: "4px",
+          borderWidth: "3px",
           borderTopColor: "current",
           borderLeftColor: "current",
           borderRightColor: "current",
