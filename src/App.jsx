@@ -1,9 +1,7 @@
 // src/App.jsx
 import React from 'react';
-import CardCarousel from './components/CardCarousel';
 import ChatInput from './components/ChatInput';
 import './App.css';
-import OtherOptions from './components/OtherOptions';
 import Navbar from './components/Navbar';
 
 const App = () => {
