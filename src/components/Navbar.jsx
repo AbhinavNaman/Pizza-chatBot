@@ -12,7 +12,7 @@ const Navbar = () => {
                                     </path>
                                   </g>
                                 </svg>
-                               <p className='text-2xl font-bold text-belden'>Sales bot</p> 
+                               <p className='text-2xl font-bold' style={{color:"#004990"}}>Sales bot</p> 
                                <img src="/bot.png" alt="sent" style={{ width: "20px" }} className='items-center pb-1'/>
 
       </div>
